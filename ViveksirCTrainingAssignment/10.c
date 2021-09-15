@@ -1,4 +1,4 @@
-//WAP to swap numbers using temporary variable.
+//WAP to swap numbers using temporary variable
 #include<stdio.h>
 int main()
 {
