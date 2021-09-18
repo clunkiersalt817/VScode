@@ -1,4 +1,4 @@
-//WAP to perform Multiplication of two user-defined numbers.
+//WAP to perform addition of two user-defined numbers.
 #include<stdio.h>
 int main(){
     int a, b;
