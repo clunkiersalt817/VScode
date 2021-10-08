@@ -1,9 +1,20 @@
-#include<stdio.h>
+#include <stdio.h>
+
+int series1(int n)
+{
+    int i, sum = 0;
+    for (i = 1; i <= n; i++)
+    {
+        sum = sum + i;
+    }
+    return sum;
+}
+
 int main()
 {
-    int n,i;
+    int n;
     printf("Enter any number : ");
-    scanf("%d",&n);
-    for(i=0);
+    scanf("%d", &n);
+    printf("%d",series(n));
     return 0;
 }
