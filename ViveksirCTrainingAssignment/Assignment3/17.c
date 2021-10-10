@@ -1,5 +1,3 @@
-//1+x+x^2+x^3+x^4+....x^n
-
 #include<stdio.h>
 int main()
 {
@@ -10,7 +8,10 @@ int main()
         for(j=1;j<=i;j++){
             m=m*x;
         }
+        if(i%2==0)
         sum=sum+m;
+        else
+        sum=sum-m;
     }
     printf("%d",1+sum);
     return 0;
