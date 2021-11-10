@@ -36,7 +36,7 @@ void display(stack st){
     for(int j=st.top;j>=0;j--){
         cout<<st.s[j]<<endl;
     }
-}
+} 
 
 int main()
 {
