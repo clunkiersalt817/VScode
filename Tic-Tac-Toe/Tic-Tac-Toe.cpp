@@ -1,5 +1,5 @@
 #include <iostream>
-#include<stdlib.h>
+#include <stdlib.h>
 using namespace std;
 
 struct positionMap{
@@ -8,8 +8,8 @@ struct positionMap{
 }map;
 
 int position;
-char player = 'O';
-char bot = 'X';
+char player1 = 'O';
+char player2 = 'X';
 char board[3][3] = {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
 
 void printBoard()
@@ -142,13 +142,17 @@ void insertLetter(char letter, int position){
 void player1Move(){
     cout<<"\nEnter position for player 1 : \n";
     cin>>position;
-    insertLetter(player,position);
+    insertLetter(player1,position);
 }
 
 void player2Move(){
     cout<<"\nEnter position for player 2 : \n";
     cin>>position;
-    insertLetter(bot,position);
+    insertLetter(player2,position);
+}
+
+void minimax(){
+    
 }
 
 int main()
