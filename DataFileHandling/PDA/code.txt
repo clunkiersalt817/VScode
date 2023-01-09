@@ -1,0 +1,532 @@
+// a^nb^n n > 0
+
+// #include<iostream>
+// #include<stack>
+// #include<fstream>
+// using namespace std;
+
+#include<iostream.h>
+#include<stack.h>
+#include<conio.h>
+#include<fstream.h>
+
+void checkString()
+{
+
+    stack<char> st;
+    st.push('$');
+
+    char c;
+    ifstream ifs("abn.txt");
+    c = ifs.get();
+    if(c == '$')  goto s1;
+
+    s1:{
+        c = ifs.get();
+        if(c == 'a'){
+            st.push(c);
+            goto s1;
+        }
+
+        if(c == 'b'){
+            ifs.seekg(-1, ios::cur);
+            goto s2;
+        }
+
+            if(c == st.top()){
+            cout<<endl<<"Valid string"<<endl;
+            getch();
+            exit(0);
+        }
+    }
+
+    s2:{
+        c = ifs.get();
+        if(c == 'b' && st.top() == 'a'){
+            st.pop();
+            goto s2;
+        }
+
+        if(c == st.top()){
+            cout<<endl<<"Valid string"<<endl;
+            getch();
+            exit(0);
+        }
+
+        cout<<endl<<"InValid string"<<endl;
+        getch();
+        exit(0);
+    }
+}
+
+int main()
+{
+    clrscr();
+    char str[100], c;
+    int i=0;
+    cout<<endl<<"Enter string(add '$' sign before and after the string) : ";
+    cin>>str;
+
+    if(str[0] != '$') {
+        cout<<endl<<"Add '$' in starting.";
+        getch();
+        exit(0);
+    }
+    for(i=1; str[i] != '\0'; i++){}
+    if(str[i-1] != '$'){
+        cout<<endl<<"Add '$' in end.";
+        getch();
+        exit(0);
+
+    }
+
+    ofstream ofs("abn.txt");
+    ofs<<str;
+    ofs.close();
+
+    checkString();
+
+    getch();
+    return 0;
+}
+
+####################################################################################
+#include<iostream.h>
+#include<conio.h>
+#include<fstream.h>
+#include<stdlib.h>
+
+// #include<iostream>
+// #include<fstream>
+// #include<stdlib.h>
+// using namespace std;
+
+void checkString()
+{
+    char c;
+    fstream fs;
+    fs.open("abn.txt", ios::in | ios::out);
+    c = fs.get();
+    if(c == '$'){
+        goto sa;
+    }
+
+    sa:
+    {
+        c = fs.get();
+        if(c == 'a') {
+            fs.seekg(-1, ios::cur);
+            fs.put('X');
+            goto sb;
+        }
+
+        if(c == 'Y'){
+            fs.seekg(1);
+            goto s2;
+        }
+    }
+
+    sb: 
+    {
+        c = fs.get();
+        if(c == 'a') goto sb;
+        if(c == 'c') {
+            fs.seekg(-1, ios::cur);
+            fs.put('Y');
+            goto s1;
+        }
+
+        if(c == 'Y'){
+            goto sb;
+        }
+    }
+    s1: 
+    {
+        c = fs.get();
+        if(c == 'c'){
+            fs.seekg(-2, ios::cur);
+            goto s1;
+        }
+        if(c == 'Y'){
+            fs.seekg(-2, ios::cur);
+            goto s1;
+        }
+        if(c == 'a'){
+            fs.seekg(-2, ios::cur);
+            goto s1;
+        }
+        if(c == 'X'){
+            goto sa;
+        }
+        if(c == '$'){
+            fs.seekg(1);
+            goto s2;
+        }
+    }
+    
+    s2:
+    { 
+        c = fs.get();
+        
+        if(c == 'X') goto s2;
+        if(c == 'Y') goto s2;
+        if(c == '$') {
+            cout<<endl<<"Valid String.";
+            getch();
+            fs.close();
+            exit(0);
+        }
+        else{
+        cout<<endl<<"Invalid String..";
+        getch();
+        fs.close();
+        exit(0);
+        }
+    }
+
+    fs.close();
+}   
+
+int main()
+{
+    clrscr();
+    char str[100], c;
+    int i=0;
+    cout<<endl<<"Enter string(add '$' sign before and after the string) : ";
+    cin>>str;
+
+    if(str[0] != '$') cout<<endl<<"Add '$' in starting.";
+    for(i=1; str[i] != '\0'; i++){}
+    if(str[i-1] != '$') cout<<endl<<"Add '$' in end.";
+
+    ofstream ofs("abn.txt");
+    ofs<<str;
+    ofs.close();
+
+    checkString();
+
+    getch();
+    return 0;
+}
+
+####################################################################################
+
+//a^m b^nc^n   (m,n > 0)
+
+
+// #include<iostream>
+// #include<stack>
+// #include<fstream>
+// using namespace std;
+
+#include<iostream.h>
+//#include<stack.h>
+#include<stdlib.h>
+#include<conio.h>
+#include<fstream.h>
+
+void checkString()
+{
+
+    stack<char> st;
+    st.push('$');
+
+    char c;
+    ifstream ifs("abn.txt");
+    c = ifs.get();
+    if(c == '$')  goto sa;
+
+    sa : {
+        c = ifs.get();
+        if(c == 'a')
+          goto sa;
+
+        if(c == 'b'){
+            ifs.seekg(-1, ios::cur);
+            goto s1;
+        }
+
+        if(c == '$'  && st.top() == 'a'){
+            cout<<endl<<"Valid "<<endl;
+            getch();
+            exit(0);
+        }
+    }
+
+    s1:{
+        c = ifs.get();
+        if(c == 'b'){
+            st.push(c);
+            goto s1;
+        }
+
+        if(c == 'c'){
+            ifs.seekg(-1, ios::cur);
+            goto s2;
+        }
+    }
+
+    s2:{
+        c = ifs.get();
+        if(c == 'c' && st.top() == 'b'){
+            st.pop();
+            goto s2;
+        }
+
+        if(c == st.top()){
+            cout<<endl<<"Valid string"<<endl;
+            getch();
+            exit(0);
+        }
+
+        cout<<endl<<"InValid string"<<endl;
+        getch();
+        exit(0);
+    }
+}
+
+int main()
+{
+    clrscr();
+    char str[100], c;
+    int i=0;
+    cout<<endl<<"Enter string(add '$' sign before and after the string) : ";
+    cin>>str;
+
+    if(str[0] != '$') {
+        cout<<endl<<"Add '$' in starting.";
+        getch();
+        exit(0);
+    }
+    for(i=1; str[i] != '\0'; i++){}
+    if(str[i-1] != '$'){
+        cout<<endl<<"Add '$' in end.";
+        getch();
+        exit(0);
+
+    }
+
+    ofstream ofs("abn.txt");
+    ofs<<str;
+    ofs.close();
+
+    checkString();
+
+    getch();
+    return 0;
+}
+
+#########################################################################################
+
+// b^na^n n >= 0
+
+
+#include<iostream>
+#include<stack>
+#include<fstream>
+using namespace std;
+
+// #include<iostream.h>
+// #include<stack.h>
+// #include<conio.h>
+// #include<fstream.h>
+
+void checkString()
+{
+
+    stack<char> st;
+    st.push('$');
+
+    char c;
+    ifstream ifs("abn.txt");
+    c = ifs.get();
+    if(c == '$')  goto s1;
+
+    s1:{
+        c = ifs.get();
+        if(c == 'b'){
+            st.push(c);
+            goto s1;
+        }
+
+        if(c == 'a'){
+            ifs.seekg(-1, ios::cur);
+            goto s2;
+        }
+
+        if(c == st.top()){
+            cout<<endl<<"Valid string"<<endl;
+            // getch();
+            exit(0);
+        }
+    }
+
+    s2:{
+        c = ifs.get();
+        if(c == 'a' && st.top() == 'b'){
+            st.pop();
+            goto s2;
+        }
+
+        if(c == st.top()){
+            cout<<endl<<"Valid string"<<endl;
+            // getch();
+            exit(0);
+        }
+
+        cout<<endl<<"InValid string"<<endl;
+        // getch();
+        exit(0);
+    }
+}
+
+int main()
+{
+    // clrscr();
+    char str[100], c;
+    int i=0;
+    cout<<endl<<"Enter string(add '$' sign before and after the string) : ";
+    cin>>str;
+
+    if(str[0] != '$') {
+        cout<<endl<<"Add '$' in starting.";
+        // getch();
+        exit(0);
+    }
+    for(i=1; str[i] != '\0'; i++){}
+    if(str[i-1] != '$'){
+        cout<<endl<<"Add '$' in end.";
+        // getch();
+        exit(0);
+
+    }
+
+    ofstream ofs("abn.txt");
+    ofs<<str;
+    ofs.close();
+
+    checkString();
+
+    // getch();
+    return 0;
+}
+
+#############################################################################################
+
+#include<iostream.h>
+#include<conio.h>
+#include<fstream.h>
+#include<stdlib.h>
+
+// #include<iostream>
+// #include<fstream>
+// #include<stdlib.h>
+// using namespace std;
+
+void checkString()
+{
+    char c;
+    fstream fs;
+    fs.open("abn.txt", ios::in | ios::out);
+    c = fs.get();
+    if(c == '$'){
+        goto sa;
+    }
+
+    sa:
+    {
+        c = fs.get();
+        if(c == 'b') {
+            fs.seekg(-1, ios::cur);
+            fs.put('X');
+            goto sb;
+        }
+
+        if(c == 'Y'){
+            fs.seekg(1);
+            goto s2;
+        }
+    }
+
+    sb: 
+    {
+        c = fs.get();
+        if(c == 'b') goto sb;
+        if(c == 'a') {
+            fs.seekg(-1, ios::cur);
+            fs.put('Y');
+            goto s1;
+        }
+
+        if(c == 'Y'){
+            goto sb;
+        }
+    }
+    s1: 
+    {
+        c = fs.get();
+        if(c == 'a'){
+            fs.seekg(-2, ios::cur);
+            goto s1;
+        }
+        if(c == 'Y'){
+            fs.seekg(-2, ios::cur);
+            goto s1;
+        }
+        if(c == 'b'){
+            fs.seekg(-2, ios::cur);
+            goto s1;
+        }
+        if(c == 'X'){
+            goto sa;
+        }
+        if(c == '$'){
+            fs.seekg(1);
+            goto s2;
+        }
+    }
+    
+    s2:
+    { 
+        c = fs.get();
+        
+        if(c == 'X') goto s2;
+        if(c == 'Y') goto s2;
+        if(c == '$') {
+            cout<<endl<<"Valid String.";
+            getch();
+            fs.close();
+            exit(0);
+        }
+        else{
+        cout<<endl<<"Invalid String..";
+        getch();
+        fs.close();
+        exit(0);
+        }
+    }
+
+    fs.close();
+}   
+
+int main()
+{
+    clrscr();
+    char str[100], c;
+    int i=0;
+    cout<<endl<<"Enter string(add '$' sign before and after the string) : ";
+    cin>>str;
+
+    if(str[0] != '$') cout<<endl<<"Add '$' in starting.";
+    for(i=1; str[i] != '\0'; i++){}
+    if(str[i-1] != '$') cout<<endl<<"Add '$' in end.";
+
+    ofstream ofs("abn.txt");
+    ofs<<str;
+    ofs.close();
+
+    checkString();
+
+    getch();
+    return 0;
+}

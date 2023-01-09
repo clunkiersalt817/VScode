@@ -38,7 +38,7 @@ void quicksort(int a[7], int lb, int ub)
 
 int main()
 {
-    int a[7] = {7, 3, 4, 8, 6, 9, 2};
+    int a[7] = {5,10,6,8,7,11,9};
     quicksort(a, 0, 6);
     displaySorted(a, 7);
     return 0;
