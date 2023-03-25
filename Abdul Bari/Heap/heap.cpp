@@ -1,43 +1,69 @@
 // Create Heap = insert operation in max heap(a complete binary tree).
 #include <iostream>
 #include <vector>
-#include <algorithm>
 using namespace std;
 
-void insert(vector<int> &v, int i)
+void insert(vector<int> &A, int n)
 {
-    int temp = v[i];
-    while ((i > 0) && (temp > v[i / 2]))
+
+    // at the start n=1 and temp = A[i] i.e.,temp = 5
+    // now we do a while loop until we find a greater parent element than our temp
+
+    int i = n;
+    int temp = A[i];
+
+    while (i > 0 && temp > A[i / 2])
     {
-        swap(v[i / 2], v[i]);
+        A[i] = A[i / 2];
         i = i / 2;
     }
+    A[i] = temp;
 }
 
-void deleted(vector<int> &v, int i)
+void dElEtE(vector<int> &H, int n)
 {
-    int temp = v[i];
-}
-
-void createHeap(vector<int> &v)
-{
-    int n = v.size();
-    for (int i = 1; i < n; i++)
+    int temp = H[n];
+    int i;
+    int deleted=H[0];
+    H[0] = temp;
+    i = 0;
+    int j = 2 * i + 1;
+    while (j < n)
     {
-        insert(v, i); // at index 1 is 13 i.e, the first element to be inserted.
+        if (H[j + 1] > H[j])
+        {
+            j += 1;
+        }
+        if (H[i] < H[j])
+        {
+            swap(H[i], H[j]);
+            i = j;
+            j = 2 * i + 1;
+        }
+        else
+            break;
     }
+    H[n]=deleted;
 }
 
 int main()
-{ //    index           0  1   2   3  4  5
-    vector<int> vec = {20, 13, 45, 3, 9, 33};
-    int n = vec.size();
-    int temp = vec[n - 1];
-    int i;
-    createHeap(vec);
-    for (i = 0; i < n; i++)
+{
+    vector<int> ans;
+    vector<int> H = {2, 5, 8, 9, 4, 10, 7};
+    for (int i = 1; i < H.size(); i++)
     {
-        cout << vec[i] << " ";
+        insert(H, i);
     }
+    for (auto x : H)
+        cout << x << " ";
+
+    cout << endl;
+
+    for (int i = H.size() - 1; i >= 0; i--)
+    {
+        dElEtE(H, i);
+    }
+    for (auto x : H)
+        cout << x << " ";
     return 0;
 }
